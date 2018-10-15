@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   minishell.h                                      .::    .:/ .      .::   */
+/*   get_next_line.h                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/15 21:47:11 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/12 15:18:16 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/15 21:17:32 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "libft.h"
-# include "get_next_line.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/wait.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 16
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <dirent.h>
-# include <sys/stat.h>
-# include <signal.h>
-# define OK ft_putendl("OK");
+# include <unistd.h>
+# include "libft.h"
 
-typedef struct		s_sh
+typedef struct	s_fd
 {
-	char	**env;
-	char	**path;
-}					t_sh;
+	int			fd;
+	char		*save;
+	int			x;
+	char		*tmp;
+	char		buff[BUFF_SIZE + 1];
+	struct s_fd	*next;
+}				t_fd;
 
-int		main(int ac, char **av);
+int				get_next_line(const int fd, char **line);
 
 #endif

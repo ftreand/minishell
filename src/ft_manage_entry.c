@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   minishell.h                                      .::    .:/ .      .::   */
+/*   ft_manage_entry.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/16 16:01:53 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/10/16 15:55:49 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/16 16:08:05 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "libft.h"
-# include "get_next_line.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <dirent.h>
-# include <sys/stat.h>
-# include <signal.h>
-# define OK ft_putendl("OK");
+#include "../includes/minishell.h"
+#include <stdio.h>
 
-typedef struct		s_sh
+void	ft_manage_entry(char ***s)
 {
-	char	**env;
-	char	**path;
-}					t_sh;
+	char **ret;
+	int i;
 
-int		main(int ac, char **av);
-void	ft_manage_entry(char ***entry);
-
-#endif
+	i = 1;
+	if (!(ret = malloc(sizeof(char*) * 3)))
+		return ;
+	ret[0] = (*s)[0];
+	printf("ret[0] = %s\n", ret[0]);
+	while ((*s)[i])
+	{
+		ret[1] = i == 1 ? ft_strsub((*s)[i], 0, ft_strlen((*s)[i])) :
+			ft_strcat(ret[1], (*s)[i]);
+		ret[1] = ft_strcat(ret[1], " ");
+		i++;
+		printf("i = %d, ret = %s\n", i, ret[1]);
+	}
+	(*s) = ret;
+}

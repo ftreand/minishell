@@ -6,7 +6,7 @@
 #    By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/09 14:43:44 by ftreand      #+#   ##    ##    #+#        #
-#    Updated: 2018/10/10 17:21:06 by ftreand     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/10/16 16:02:08 by ftreand     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,6 +30,7 @@ COLOR = echo
 CC_FLAGS = -Wall -Werror -Wextra
 
 SRC = main.c \
+	  ft_manage_entry.c \
 
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))

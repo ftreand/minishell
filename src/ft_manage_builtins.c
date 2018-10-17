@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_manage_entry.c                                .::    .:/ .      .::   */
+/*   ft_manage_builtins.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/16 15:55:49 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/16 16:08:05 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/17 17:50:29 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
 
-void	ft_manage_entry(char ***s)
+void	ft_print_env(t_sh *sh)
 {
-	char **ret;
 	int i;
 
-	i = 1;
-	if (!(ret = malloc(sizeof(char*) * 3)))
-		return ;
-	ret[0] = (*s)[0];
-	printf("ret[0] = %s\n", ret[0]);
-	while ((*s)[i])
-	{
-		ret[1] = i == 1 ? ft_strsub((*s)[i], 0, ft_strlen((*s)[i])) :
-			ft_strcat(ret[1], (*s)[i]);
-		ret[1] = ft_strcat(ret[1], " ");
-		i++;
-		printf("i = %d, ret = %s\n", i, ret[1]);
-	}
-	(*s) = ret;
+	i = -1;
+	while (sh->env[++i])
+		ft_putendl(sh->env[i]);
+}
+
+int		ft_manage_builtins(t_sh *sh)
+{
+	if (!ft_strcmp(sh->entry[0], "exit"))
+		return (1);
+//	else if (!ft_strcmp(sh->entry[0], "env"))
+//	{
+//		ft_print_env(sh);
+//		return (2);
+//	}
+	return (0);
 }

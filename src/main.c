@@ -143,14 +143,14 @@ void	ft_recup_env(t_sh *sh)
 
 int		main(int ac, char **av)
 {
-//	int i;
+	int i;
 	t_sh	sh;
 	extern char **environ;
 	char buf[4096];
 //	char **entry;
 
 	(void)av;
-//	i = 0;
+	i = 0;
 	sh.env = NULL;
 	if (ac)
 	{
@@ -170,16 +170,19 @@ int		main(int ac, char **av)
 //			ft_manage_entry(&entry);
 			ft_bzero(buf, 4096);
 //			printf("buf = %s\n", buf);
-			if (!ft_strcmp(sh.entry[0], "env"))
+//			if (!ft_strcmp(sh.entry[0], "env"))
+//			{
+//				ft_print_env(&sh);
+//				ft_putstr("$minishell>");
+//				continue ;
+//			}
+			if ((i = ft_manage_builtins(&sh)))
 			{
-				ft_print_env(&sh);
-				ft_putstr("$minishell>");
-				continue ;
-			}
-			if (ft_manage_builtins(&sh))
-			{
-				if (ft_manage_builtins(&sh) == 2)
+				if (i == 2)
+				{
+					ft_putstr("$minishell>");
 					continue ;
+				}
 				return (0);
 			}
 //			printf("path = %s\n", sh.path[0]);

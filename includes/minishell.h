@@ -24,6 +24,7 @@
 # include <dirent.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <stdio.h>
 # define OK ft_putendl("OK");
 
 typedef struct		s_sh

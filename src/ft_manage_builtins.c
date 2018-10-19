@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/17 17:50:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/19 17:58:06 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,10 +49,48 @@ char	**ft_manage_setenv(t_sh *sh)
 	return (env);
 }
 
+char	**ft_manage_unsetenv(t_sh *sh)
+{
+	int i;
+	int j;
+	char **env;
+
+	i = 0;
+	j = 0;
+	printf("len = %zu\n", ft_strlen(sh->entry[0]));
+	if (!(env = malloc(sizeof(char*) * ft_tablen(sh->env))))
+		return (NULL);
+	while (sh->env[i])
+	{
+		if (ft_strncmp(sh->env[i], sh->entry[1], ft_strlen(sh->entry[1])))
+			env[j++] = ft_strsub(sh->env[i], 0, ft_strlen(sh->env[i]));
+		i++;
+	}
+	env[j] = NULL;
+	return(env);
+}
+
+void		ft_exit_num(t_sh *sh)
+{
+	if (ft_strisdigit(sh->entry[1]))
+		exit(ft_atoi(sh->entry[1]));
+	else
+	{
+		ft_putstr("minishell: exit: ");
+		ft_putstr(sh->entry[1]);
+		ft_putendl(": numeric argument required");
+		exit(255);
+	}
+}
+
 int		ft_manage_builtins(t_sh *sh)
 {
 	if (!ft_strcmp(sh->entry[0], "exit"))
+	{
+		if (sh->entry[1])
+			ft_exit_num(sh);
 		return (1);
+	}
 	else if (!ft_strcmp(sh->entry[0], "env"))
 	{
 		ft_print_env(sh);
@@ -61,6 +99,16 @@ int		ft_manage_builtins(t_sh *sh)
 	else if (!ft_strcmp(sh->entry[0], "setenv"))
 	{
 		sh->env = ft_manage_setenv(sh);
+		if (!ft_strncmp(sh->entry[1], "PATH", 4))
+				ft_recup_value(sh, "PATH");
+		return (2);
+	}
+	else if (!ft_strcmp(sh->entry[0], "unsetenv"))
+	{
+		sh->env = ft_manage_unsetenv(sh);
+		OK
+		if (!ft_strcmp(sh->entry[1], "PATH"))
+			sh->path = NULL;
 		return (2);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/27 21:48:21 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/10 19:05:22 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/19 17:53:38 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,5 +92,6 @@ void				ft_swap(int *a, int *b);
 int					ft_ocurences(const char *str, char c);
 int					ft_tablen(char **tab);
 char				**ft_split(char *s);
+int					ft_strisdigit(char *s);
 
 #endif

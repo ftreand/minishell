@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/17 17:53:12 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/19 16:54:14 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void	ft_exec_bin(t_sh *sh, int i)
 //	printf("bin0 = %s\n", bin[0]);
 	bin = ft_strcat(sh->path[i], "/");
 	bin = ft_strcat(bin, sh->entry[0]);
-	printf("bin1 = %s\n", bin);
+//	printf("bin1 = %s\n", bin);
 //	printf("path =%s\n", path);
 //	printf("father = %d\n", father);
 	if (father)
@@ -35,7 +35,7 @@ void	ft_exec_bin(t_sh *sh, int i)
 	return ;
 }
 
-void	ft_find_bin(t_sh *sh)
+int		ft_find_bin(t_sh *sh)
 {
 	int i;
 	DIR *dir;
@@ -44,6 +44,8 @@ void	ft_find_bin(t_sh *sh)
 	i = 0;
 //	printf("entry 0 = %s\n", entry[0]);
 //	printf("path i = %s\n", sh->path[i]);
+	if (!sh->path)
+		return (0);
 	while (sh->path[i])
 	{
 //		printf("path i = %s\n", sh->path[i]);
@@ -52,13 +54,13 @@ void	ft_find_bin(t_sh *sh)
 		{
 		while ((dirent = readdir(dir)) != NULL)
 		{
-			printf("name = %s\n", dirent->d_name);
+//			printf("name = %s\n", dirent->d_name);
 			if (!ft_strcmp(sh->entry[0], dirent->d_name))
 			{
 //				OK;
 				ft_exec_bin(sh, i);
 				closedir(dir);
-				return ;
+				return (1);
 			}
 		}
 		if (dir)
@@ -66,6 +68,7 @@ void	ft_find_bin(t_sh *sh)
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	ft_recup_value(t_sh *sh, char *var)
@@ -161,9 +164,9 @@ int		main(int ac, char **av)
 //		}
 //		i = 0;
 		ft_putstr("$minishell>");
+		ft_recup_env(&sh);
 		while (read(0, buf, 4096))
 		{
-			ft_recup_env(&sh);
 //			entry = NULL;
 //			printf("buf = %s\n", buf);
 			sh.entry = ft_split(buf);
@@ -188,7 +191,20 @@ int		main(int ac, char **av)
 //			printf("path = %s\n", sh.path[0]);
 //			printf("entry 1 = %s\n", entry[1]);
 			else
-				ft_find_bin(&sh);
+			{
+				if (ft_find_bin(&sh))
+				{
+					ft_putstr("$minishell>");
+					continue ;
+				}
+				else
+				{
+					ft_putstr("minishell: command not found: ");
+					ft_putendl(sh.entry[0]);
+					ft_putstr("$minishell>");
+					continue ;
+				}
+			}
 //			while (entry[i] != NULL)
 //			{
 //				printf("entry = %s\n", entry[i]);

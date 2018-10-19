@@ -6,7 +6,7 @@
 #    By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/27 21:48:32 by ftreand      #+#   ##    ##    #+#        #
-#    Updated: 2018/10/10 19:01:39 by ftreand     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/10/19 17:51:30 by ftreand     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -78,7 +78,8 @@ SRC = ft_memset.c \
 	  ft_swap.c \
 	  ft_tablen.c \
 	  ft_ocurences.c \
-	  ft_split.c
+	  ft_split.c \
+	  ft_strisdigit.c \
 
 OBJ = $(SRC:.c=.o)
 

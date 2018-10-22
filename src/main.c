@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/19 16:54:14 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/23 01:16:11 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,20 +18,34 @@ void	ft_exec_bin(t_sh *sh, int i)
 {
 	pid_t father;
 	char *bin;
+//	int j = 0;
+	int err = 0;
+
 	father = fork();
+//	while (sh->env[j])
+//	{
+//		printf("env = %s\n", sh->env[j]);
+//		j++;
+//	}
 //	printf("bin0 = %s\n", bin[0]);
-	bin = ft_strcat(sh->path[i], "/");
+	bin = ft_strsub(sh->path[i], 0, ft_strlen(sh->path[i]));
+	bin = ft_strcat(bin, "/");
 	bin = ft_strcat(bin, sh->entry[0]);
 //	printf("bin1 = %s\n", bin);
 //	printf("path =%s\n", path);
 //	printf("father = %d\n", father);
 	if (father)
-		wait(NULL);
+	{
+		wait(&err);
+		WEXITSTATUS(err);
+		kill(father, SIGKILL);
+	}
 	if (father == 0)
 	{
 //		printf("OK1\n");
-		execve(sh->path[i], sh->entry, sh->env);
+		execve(bin, sh->entry, sh->env);
 	}
+	free(bin);
 	return ;
 }
 
@@ -83,10 +97,8 @@ void	ft_recup_value(t_sh *sh, char *var)
 		i++;
 
 	if (sh->env[i])
-	{
 //		ft_putstr("OK\n");
 		path = ft_strsplit(sh->env[i] + ft_strlen(var) + 1, ':');
-	}
 //	i = -1;
 //	while (path[++i])
 //		ft_putendl(path[i]);
@@ -148,7 +160,7 @@ int		main(int ac, char **av)
 {
 	int i;
 	t_sh	sh;
-	extern char **environ;
+//	extern char **environ;
 	char buf[4096];
 //	char **entry;
 
@@ -163,10 +175,17 @@ int		main(int ac, char **av)
 //			i++;
 //		}
 //		i = 0;
-		ft_putstr("$minishell>");
+//		ft_init_struct(&sh);
+		ft_bzero(buf, 4096);
+		ft_putstr("$minishell> ");
 		ft_recup_env(&sh);
-		while (read(0, buf, 4096))
+		while ((read(0, buf, 4096) != -1))
 		{
+			if (buf[0] == '\n')
+			{
+				ft_putstr("$minishell> ");
+				continue ;
+			}
 //			entry = NULL;
 //			printf("buf = %s\n", buf);
 			sh.entry = ft_split(buf);
@@ -183,7 +202,8 @@ int		main(int ac, char **av)
 			{
 				if (i == 2)
 				{
-					ft_putstr("$minishell>");
+//					ft_free_struct(&sh);
+					ft_putstr("$minishell> ");
 					continue ;
 				}
 				return (0);
@@ -194,14 +214,14 @@ int		main(int ac, char **av)
 			{
 				if (ft_find_bin(&sh))
 				{
-					ft_putstr("$minishell>");
+					ft_putstr("$minishell> ");
 					continue ;
 				}
 				else
 				{
 					ft_putstr("minishell: command not found: ");
 					ft_putendl(sh.entry[0]);
-					ft_putstr("$minishell>");
+					ft_putstr("$minishell> ");
 					continue ;
 				}
 			}

@@ -6,7 +6,7 @@
 #    By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/09 14:43:44 by ftreand      #+#   ##    ##    #+#        #
-#    Updated: 2018/10/23 01:04:12 by ftreand     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/10/23 11:26:28 by ftreand     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,6 +34,7 @@ SRC =	main.c \
 		ft_manage_builtins2.c \
 		ft_executable.c \
 		ft_init_struct.c \
+		ft_cd.c \
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

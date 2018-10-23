@@ -3,5 +3,4 @@
 int		main()
 {
 	printf("ftreand\n");
-	printf("ftreand\n");
 }

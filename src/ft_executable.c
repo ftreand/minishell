@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 23:41:18 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 00:54:28 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/23 21:17:38 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,17 @@ void	ft_executable(t_sh *sh)
 		i++;
 		j++;
 	}
-	if ((i = access(sh->exec, F_OK | X_OK)) == 0)
+	if ((i = access(sh->exec, F_OK) == -1))
+	{
+		ft_putstr("zsh: no such file or directory: ");
+		ft_putendl(sh->exec);
+	}
+	else if ((i = access(sh->exec, F_OK | X_OK)) == 0)
 		ft_execution(sh);
+	else if ((i = access(sh->exec, F_OK | X_OK)) == -1)
+	{
+		ft_putstr("zsh: permission denied: ");
+		ft_putendl(sh->exec);
+	}
+
 }

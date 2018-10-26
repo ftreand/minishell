@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 01:16:11 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/23 23:32:31 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,7 @@ void	ft_exec_bin(t_sh *sh, int i)
 //		printf("OK1\n");
 		execve(bin, sh->entry, sh->env);
 	}
+	ft_free_tab(sh->entry);
 	free(bin);
 	return ;
 }
@@ -82,6 +83,7 @@ int		ft_find_bin(t_sh *sh)
 		}
 		i++;
 	}
+	ft_free_tab(sh->entry);
 	return (0);
 }
 
@@ -153,14 +155,21 @@ void	ft_recup_env(t_sh *sh)
 //		printf("env[%d] = %s\n", i, environ[i]);
 		i++;
 	}
-	ft_recup_value(sh, "PATH");
+	if (environ[0])
+		ft_recup_value(sh, "PATH");
+}
+
+void	my_handler(int sig)
+{
+	if (sig)
+		ft_putstr("\n$minishell> ");
 }
 
 int		main(int ac, char **av)
 {
 	int i;
 	t_sh	sh;
-//	extern char **environ;
+	extern char **environ;
 	char buf[4096];
 //	char **entry;
 
@@ -169,6 +178,8 @@ int		main(int ac, char **av)
 	sh.env = NULL;
 	if (ac)
 	{
+		if (!environ[0])
+			printf("NOK\n");
 //		while (environ[i])
 //		{
 //			printf("environ = %s\n", environ[i]);
@@ -177,6 +188,7 @@ int		main(int ac, char **av)
 //		i = 0;
 //		ft_init_struct(&sh);
 		ft_bzero(buf, 4096);
+	signal(SIGINT, my_handler);
 		ft_putstr("$minishell> ");
 		ft_recup_env(&sh);
 		while ((read(0, buf, 4096) != -1))
@@ -200,6 +212,7 @@ int		main(int ac, char **av)
 //			}
 			if ((i = ft_manage_builtins(&sh)))
 			{
+				ft_free_struct(&sh);
 				if (i == 2)
 				{
 //					ft_free_struct(&sh);

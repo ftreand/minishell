@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 11:23:11 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 12:33:19 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/23 20:39:38 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,17 +28,20 @@ void	ft_print_cd_error(t_sh *sh)
 void	ft_modif_pwd(char *s, t_sh *sh)
 {
 	int i;
-	char *env;
+	char env[4096];
 
+	ft_bzero(env, 4096);
 	i = 0;
 	while (ft_strncmp(sh->env[i], "PWD", 3))
 		i++;
-	env = ft_strsub("PWD=", 0, 4);
-	env = ft_strcat(env, s);
+	ft_strcpy(env, "PWD=");
+	ft_strcat(env, s);
+	free(sh->env[i]);
 	printf("buf = %s\n", s);
 	printf("env = %s\n", env);
-	ft_bzero(sh->env[i], ft_strlen(sh->env[i]));
+//	ft_bzero(sh->env[i], ft_strlen(sh->env[i]));
 	printf("sh env0 = %s\n", sh->env[i]);
+	printf("env = %s\n", env);
 	sh->env[i] = ft_strsub(env, 0, ft_strlen(env));
 	printf("sh env = %s\n", sh->env[i]);
 }

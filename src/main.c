@@ -28,7 +28,7 @@ void	ft_exec_bin(t_sh *sh, int i)
 //		j++;
 //	}
 //	printf("bin0 = %s\n", bin[0]);
-	bin = ft_strsub(sh->path[i], 0, ft_strlen(sh->path[i]));
+	bin = ft_strsub(sh->path[i], 0, ft_strlen(sh->path[i]) + ft_strlen(sh->entry[0] + 1));
 	bin = ft_strcat(bin, "/");
 	bin = ft_strcat(bin, sh->entry[0]);
 //	printf("bin1 = %s\n", bin);
@@ -45,7 +45,7 @@ void	ft_exec_bin(t_sh *sh, int i)
 //		printf("OK1\n");
 		execve(bin, sh->entry, sh->env);
 	}
-	ft_free_tab(sh->entry);
+	ft_free_struct(sh);
 	free(bin);
 	return ;
 }
@@ -83,7 +83,7 @@ int		ft_find_bin(t_sh *sh)
 		}
 		i++;
 	}
-	ft_free_tab(sh->entry);
+	ft_free_struct(sh);
 	return (0);
 }
 
@@ -190,9 +190,9 @@ int		main(int ac, char **av)
 		ft_bzero(buf, 4096);
 	signal(SIGINT, my_handler);
 		ft_putstr("$minishell> ");
-		ft_recup_env(&sh);
 		while ((read(0, buf, 4096) != -1))
 		{
+		ft_recup_env(&sh);
 			if (buf[0] == '\n')
 			{
 				ft_putstr("$minishell> ");
@@ -243,7 +243,7 @@ int		main(int ac, char **av)
 //				printf("entry = %s\n", entry[i]);
 //				i++;
 //			}
-			free(sh.entry);
+//			free(sh.entry);
 //			free(sh.env);
 //			i = 0;
 //			printf("OK\n");

@@ -6,7 +6,7 @@
 #    By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/09 14:43:44 by ftreand      #+#   ##    ##    #+#        #
-#    Updated: 2018/10/23 11:26:28 by ftreand     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/10/30 23:26:26 by ftreand     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -27,7 +27,7 @@ CC = gcc
 
 COLOR = echo
 
-CC_FLAGS = -Wall -Werror -Wextra
+CC_FLAGS = -Wall -Werror -Wextra -g
 
 SRC =	main.c \
 		ft_manage_builtins.c \
@@ -35,6 +35,7 @@ SRC =	main.c \
 		ft_executable.c \
 		ft_init_struct.c \
 		ft_cd.c \
+		ft_cd2.c \
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

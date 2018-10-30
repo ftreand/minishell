@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/29 22:33:19 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 00:23:27 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ typedef struct		s_sh
 	char	**path;
 	char	**entry;
 	char	*exec;
+	char	*pwd;
 
 }					t_sh;
 
@@ -49,4 +50,8 @@ void				ft_change_dir(t_sh *sh);
 void				ft_recup_env(t_sh *sh);
 void				ft_free_tab(char **tab);
 void				ft_execution(t_sh *sh);
+void				recup_pwd(t_sh *sh);
+void				modif_old_pwd(t_sh *sh);
+void				ft_modif_pwd(char *s, t_sh *sh);
+void				manage_empty_cd(t_sh *sh);
 #endif

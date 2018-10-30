@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/29 23:32:36 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 00:21:57 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ int g_i;
 void	ft_exec_bin(t_sh *sh, int i)
 {
 	pid_t father;
-	char *bin;
+	char *bin = NULL;
 	//	int j = 0;
 	int err = 0;
 
@@ -28,8 +28,10 @@ void	ft_exec_bin(t_sh *sh, int i)
 	//		printf("env = %s\n", sh->env[j]);
 	//		j++;
 	//	}
-	//	printf("bin0 = %s\n", bin[0]);
-	bin = ft_strsub(sh->path[i], 0, ft_strlen(sh->path[i]) + ft_strlen(sh->entry[0] + 1));
+	if (!(bin = (char*)malloc(sizeof(char) * (ft_strlen(sh->path[i]) +
+						ft_strlen(sh->entry[0]) + 2))))
+		return ;
+	ft_strcpy(bin, sh->path[i]);
 	bin = ft_strcat(bin, "/");
 	bin = ft_strcat(bin, sh->entry[0]);
 	//	printf("bin1 = %s\n", bin);
@@ -45,9 +47,9 @@ void	ft_exec_bin(t_sh *sh, int i)
 	{
 		//		printf("OK1\n");
 		execve(bin, sh->entry, sh->env);
+		free(bin);
 	}
 	ft_free_tab(sh->entry);
-	free(bin);
 	return ;
 }
 
@@ -146,7 +148,7 @@ void	ft_recup_env(t_sh *sh)
 	i = 0;
 	while (environ[i])
 		i++;
-	sh->env = malloc(sizeof(char*) * i + 1);
+	sh->env = malloc(sizeof(char*) * (i + 1));
 	sh->env[i] = NULL;
 	i = 0;
 	while (environ[i])
@@ -211,7 +213,7 @@ int		main(int ac, char **av)
 			sh.entry = ft_split(buf);
 			if (!sh.entry[0])
 			{
-				ft_putstr("$minishell>");
+				ft_putstr("$minishell> ");
 				continue ;
 			}
 			OK
@@ -227,7 +229,7 @@ int		main(int ac, char **av)
 			if ((i = ft_manage_builtins(&sh)))
 			{
 				printf("i = %d\n", i);
-				OK
+//				OK
 				ft_free_tab(sh.entry);
 				if (i == 2)
 				{
@@ -268,7 +270,7 @@ int		main(int ac, char **av)
 			//			free(sh.env);
 			//			i = 0;
 			//			printf("OK\n");
-				ft_putstr("$minishell>");
+				ft_putstr("$minishell> ");
 		}
 	}
 	return (0);

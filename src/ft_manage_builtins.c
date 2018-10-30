@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/29 23:49:28 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/30 23:53:26 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ char	**ft_manage_unsetenv(t_sh *sh)
 	while (sh->env[i])
 	{
 		if (ft_strncmp(sh->env[i], sh->entry[1], ft_strlen(sh->entry[1])))
-			env[j++] = ft_strsub(sh->env[i], 0, ft_strlen(sh->env[i]));
+			env[j++] = ft_strdup(sh->env[i]);
 		i++;
 	}
 	env[j] = NULL;

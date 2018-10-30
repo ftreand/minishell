@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 11:23:11 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 20:39:38 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 20:53:09 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,15 +46,28 @@ void	ft_modif_pwd(char *s, t_sh *sh)
 	printf("sh env = %s\n", sh->env[i]);
 }
 
+char	*modif_entry(char *s)
+{
+	char *ret;
+
+	if (!(ret = malloc(sizeof(char) * (ft_strlen(s + 14)))))
+		return (NULL);
+	ft_strcpy(ret, "/Users/ftreand/");
+	printf("ret = %s\n", ret);
+	ft_strcat(ret, s + 2);
+	return (ret);
+}
+
 void	ft_change_dir(t_sh *sh)
 {
 	char buf[4096];
 
-	if (!ft_strcmp(sh->entry[1], "~"))
-		sh->entry[1] = ft_strsub("/Users/ftreand", 0, 14);
+	if (sh->entry[1][0] == '~')
+		sh->entry[1] = modif_entry(sh->entry[1]);
+	printf("sh[1] = %s\n", sh->entry[1]);
 	if ((chdir(sh->entry[1])) == -1)
 		ft_print_dir_error(sh->entry[1]);
-	else 
+	else
 	{
 		getcwd(buf, 4096);
 		ft_modif_pwd(buf, sh);

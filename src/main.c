@@ -6,34 +6,35 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 23:32:31 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 23:32:36 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+int g_i;
 
 void	ft_exec_bin(t_sh *sh, int i)
 {
 	pid_t father;
 	char *bin;
-//	int j = 0;
+	//	int j = 0;
 	int err = 0;
 
 	father = fork();
-//	while (sh->env[j])
-//	{
-//		printf("env = %s\n", sh->env[j]);
-//		j++;
-//	}
-//	printf("bin0 = %s\n", bin[0]);
+	//	while (sh->env[j])
+	//	{
+	//		printf("env = %s\n", sh->env[j]);
+	//		j++;
+	//	}
+	//	printf("bin0 = %s\n", bin[0]);
 	bin = ft_strsub(sh->path[i], 0, ft_strlen(sh->path[i]) + ft_strlen(sh->entry[0] + 1));
 	bin = ft_strcat(bin, "/");
 	bin = ft_strcat(bin, sh->entry[0]);
-//	printf("bin1 = %s\n", bin);
-//	printf("path =%s\n", path);
-//	printf("father = %d\n", father);
+	//	printf("bin1 = %s\n", bin);
+	//	printf("path =%s\n", path);
+	//	printf("father = %d\n", father);
 	if (father)
 	{
 		wait(&err);
@@ -42,10 +43,10 @@ void	ft_exec_bin(t_sh *sh, int i)
 	}
 	if (father == 0)
 	{
-//		printf("OK1\n");
+		//		printf("OK1\n");
 		execve(bin, sh->entry, sh->env);
 	}
-	ft_free_struct(sh);
+	ft_free_tab(sh->entry);
 	free(bin);
 	return ;
 }
@@ -57,33 +58,32 @@ int		ft_find_bin(t_sh *sh)
 	struct dirent *dirent;
 
 	i = 0;
-//	printf("entry 0 = %s\n", entry[0]);
-//	printf("path i = %s\n", sh->path[i]);
+	//	printf("entry 0 = %s\n", entry[0]);
+	//	printf("path i = %s\n", sh->path[i]);
 	if (!sh->path)
 		return (0);
 	while (sh->path[i])
 	{
-//		printf("path i = %s\n", sh->path[i]);
+		//		printf("path i = %s\n", sh->path[i]);
 		dir = opendir(sh->path[i]);
 		if (dir)
 		{
-		while ((dirent = readdir(dir)) != NULL)
-		{
-//			printf("name = %s\n", dirent->d_name);
-			if (!ft_strcmp(sh->entry[0], dirent->d_name))
+			while ((dirent = readdir(dir)) != NULL)
 			{
-//				OK;
-				ft_exec_bin(sh, i);
-				closedir(dir);
-				return (1);
+				//			printf("name = %s\n", dirent->d_name);
+				if (!ft_strcmp(sh->entry[0], dirent->d_name))
+				{
+					//				OK;
+					ft_exec_bin(sh, i);
+					closedir(dir);
+					return (1);
+				}
 			}
-		}
-		if (dir)
-			closedir(dir);
+			if (dir)
+				closedir(dir);
 		}
 		i++;
 	}
-	ft_free_struct(sh);
 	return (0);
 }
 
@@ -94,54 +94,54 @@ void	ft_recup_value(t_sh *sh, char *var)
 
 	path = NULL;
 	i = 0;
-//	OK
+	//	OK
 	while (ft_strncmp(var, sh->env[i], ft_strlen(var)))
 		i++;
 
 	if (sh->env[i])
-//		ft_putstr("OK\n");
+		//		ft_putstr("OK\n");
 		path = ft_strsplit(sh->env[i] + ft_strlen(var) + 1, ':');
-//	i = -1;
-//	while (path[++i])
-//		ft_putendl(path[i]);
+	//	i = -1;
+	//	while (path[++i])
+	//		ft_putendl(path[i]);
 	sh->path = path;
 	/*
-void	ft_find_bin(char **entry, t_sh *sh)
-{
-	int i;
-	DIR *dir;
-	struct dirent *dirent;
+	   void	ft_find_bin(char **entry, t_sh *sh)
+	   {
+	   int i;
+	   DIR *dir;
+	   struct dirent *dirent;
 
-	i = 0;
-	printf("entry 0 = %s\n", entry[0]);
-	printf("path i = %s\n", sh->path[i]);
-	while (sh->path[i])
-	{
-		printf("path i = %s\n", sh->path[i]);
-		dir = opendir(sh->path[i]);
-		if (dir)
-		{
-		while ((dirent = readdir(dir)) != NULL)
-		{
-			printf("name = %s\n", dirent->d_name);
-			if (!ft_strcmp(entry[0], dirent->d_name))
-				OK;
-		}
-		closedir(dir);
-		}
-		i++;
-	}
-}
+	   i = 0;
+	   printf("entry 0 = %s\n", entry[0]);
+	   printf("path i = %s\n", sh->path[i]);
+	   while (sh->path[i])
+	   {
+	   printf("path i = %s\n", sh->path[i]);
+	   dir = opendir(sh->path[i]);
+	   if (dir)
+	   {
+	   while ((dirent = readdir(dir)) != NULL)
+	   {
+	   printf("name = %s\n", dirent->d_name);
+	   if (!ft_strcmp(entry[0], dirent->d_name))
+	   OK;
+	   }
+	   closedir(dir);
+	   }
+	   i++;
+	   }
+	   }
 
-	if (sh->env)
-		ft_fill_tab(sh->env[i], sh->path);*/
+	   if (sh->env)
+	   ft_fill_tab(sh->env[i], sh->path);*/
 }
 
 void	ft_recup_env(t_sh *sh)
 {
 	extern char **environ;
 	int i;
-//	char *line;
+	//	char *line;
 
 	i = 0;
 	while (environ[i])
@@ -152,7 +152,7 @@ void	ft_recup_env(t_sh *sh)
 	while (environ[i])
 	{
 		sh->env[i] = ft_strsub(environ[i], 0, ft_strlen(environ[i]));
-//		printf("env[%d] = %s\n", i, environ[i]);
+		//		printf("env[%d] = %s\n", i, environ[i]);
 		i++;
 	}
 	if (environ[0])
@@ -161,6 +161,7 @@ void	ft_recup_env(t_sh *sh)
 
 void	my_handler(int sig)
 {
+	g_i = 1;
 	if (sig)
 		ft_putstr("\n$minishell> ");
 }
@@ -171,8 +172,8 @@ int		main(int ac, char **av)
 	t_sh	sh;
 	extern char **environ;
 	char buf[4096];
-//	char **entry;
-
+	//	char **entry;
+	g_i = 0;
 	(void)av;
 	i = 0;
 	sh.env = NULL;
@@ -180,74 +181,89 @@ int		main(int ac, char **av)
 	{
 		if (!environ[0])
 			printf("NOK\n");
-//		while (environ[i])
-//		{
-//			printf("environ = %s\n", environ[i]);
-//			i++;
-//		}
-//		i = 0;
+		//		while (environ[i])
+		//		{
+		//			printf("environ = %s\n", environ[i]);
+		//			i++;
+		//		}
+		//		i = 0;
 //		ft_init_struct(&sh);
 		ft_bzero(buf, 4096);
-	signal(SIGINT, my_handler);
+		signal(SIGINT, my_handler);
 		ft_putstr("$minishell> ");
-		while ((read(0, buf, 4096) != -1))
-		{
 		ft_recup_env(&sh);
-			if (buf[0] == '\n')
+		int ret;
+		while ((ret = read(0, buf, 4096)) != -1)
+		{
+			printf("ret = %d\n", ret);
+			if (!ret)
+				break ;
+			//			if (sh.env)
+//				ft_recup_value(&sh, "PATH");
+			if (buf[0] == '\n' || buf[0] == 32 || buf[0] == 9)
 			{
 				ft_putstr("$minishell> ");
 				continue ;
 			}
-//			entry = NULL;
-//			printf("buf = %s\n", buf);
+			//			entry = NULL;
+			//			printf("buf = %s\n", buf);
+			OK
 			sh.entry = ft_split(buf);
-//			ft_manage_entry(&entry);
+			OK
+			//			ft_manage_entry(&entry);
 			ft_bzero(buf, 4096);
-//			printf("buf = %s\n", buf);
-//			if (!ft_strcmp(sh.entry[0], "env"))
-//			{
-//				ft_print_env(&sh);
-//				ft_putstr("$minishell>");
-//				continue ;
-//			}
+			//			printf("buf = %s\n", buf);
+			//			if (!ft_strcmp(sh.entry[0], "env"))
+			//			{
+			//				ft_print_env(&sh);
+			//				ft_putstr("$minishell>");
+			//				continue ;
+			//			}
 			if ((i = ft_manage_builtins(&sh)))
 			{
-				ft_free_struct(&sh);
+				printf("i = %d\n", i);
+				OK
+				ft_free_tab(sh.entry);
 				if (i == 2)
 				{
 //					ft_free_struct(&sh);
 					ft_putstr("$minishell> ");
 					continue ;
 				}
+				ft_free_struct(&sh);
+//				sleep(10);
 				return (0);
 			}
-//			printf("path = %s\n", sh.path[0]);
-//			printf("entry 1 = %s\n", entry[1]);
+			//			printf("path = %s\n", sh.path[0]);
+			//			printf("entry 1 = %s\n", entry[1]);
 			else
 			{
 				if (ft_find_bin(&sh))
 				{
-					ft_putstr("$minishell> ");
+//					ft_free_struct(&sh);
+					if (!g_i)
+						ft_putstr("$minishell> ");
+					g_i = 0;
 					continue ;
 				}
 				else
 				{
-					ft_putstr("minishell: command not found: ");
-					ft_putendl(sh.entry[0]);
+					ft_executable(&sh);
+//					ft_free_struct(&sh);
 					ft_putstr("$minishell> ");
 					continue ;
 				}
 			}
-//			while (entry[i] != NULL)
-//			{
-//				printf("entry = %s\n", entry[i]);
-//				i++;
-//			}
-//			free(sh.entry);
-//			free(sh.env);
-//			i = 0;
-//			printf("OK\n");
-			ft_putstr("$minishell>");
+			//			while (entry[i] != NULL)
+			//			{
+			//				printf("entry = %s\n", entry[i]);
+			//				i++;
+			//			}
+			//			free(sh.entry);
+			//			free(sh.env);
+			//			i = 0;
+			//			printf("OK\n");
+				ft_putstr("$minishell>");
 		}
 	}
 	return (0);

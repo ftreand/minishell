@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 21:31:35 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 22:33:19 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,4 +48,5 @@ void				ft_print_cd_error(t_sh *sh);
 void				ft_change_dir(t_sh *sh);
 void				ft_recup_env(t_sh *sh);
 void				ft_free_tab(char **tab);
+void				ft_execution(t_sh *sh);
 #endif

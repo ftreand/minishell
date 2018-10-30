@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 21:16:31 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 11:28:00 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 20:10:00 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,10 +77,10 @@ int		ft_manage_builtins2(t_sh *sh)
 		ft_manage_cd(sh);
 		return (2);
 	}
-	else if (sh->entry[0][0] == '.' && sh->entry[0][1] == '/')
-	{
-		ft_executable(sh);
-		return (2);
-	}
+//	else if (sh->entry[0][0] == '.' && sh->entry[0][1] == '/')
+//	{
+//		ft_executable(sh);
+//		return (2);
+//	}
 	return (0);
 }

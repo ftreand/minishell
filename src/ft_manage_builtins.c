@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/23 21:22:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 23:49:28 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ char	**ft_manage_setenv(t_sh *sh)
 //		printf("env[%d] = %s\n", j, env[j]);
 //		j++;
 //	}
+	ft_free_tab(sh->env);
 	return (env);
 }
 
@@ -67,6 +68,7 @@ char	**ft_manage_unsetenv(t_sh *sh)
 		i++;
 	}
 	env[j] = NULL;
+	ft_free_tab(sh->env);
 	return(env);
 }
 

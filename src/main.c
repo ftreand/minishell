@@ -195,20 +195,25 @@ int		main(int ac, char **av)
 		int ret;
 		while ((ret = read(0, buf, 4096)) != -1)
 		{
-			printf("ret = %d\n", ret);
+//			printf("ret = %d\n", ret);
 			if (!ret)
 				break ;
 			//			if (sh.env)
 //				ft_recup_value(&sh, "PATH");
-			if (buf[0] == '\n' || buf[0] == 32 || buf[0] == 9)
-			{
-				ft_putstr("$minishell> ");
-				continue ;
-			}
+//			if (buf[0] == '\n' || buf[0] == 32 || buf[0] == 9)
+//			{
+//				ft_putstr("$minishell> ");
+//				continue ;
+//			}
 			//			entry = NULL;
 			//			printf("buf = %s\n", buf);
 			OK
 			sh.entry = ft_split(buf);
+			if (!sh.entry[0])
+			{
+				ft_putstr("$minishell>");
+				continue ;
+			}
 			OK
 			//			ft_manage_entry(&entry);
 			ft_bzero(buf, 4096);

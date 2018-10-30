@@ -54,7 +54,8 @@ char	*modif_entry(char *s)
 		return (NULL);
 	ft_strcpy(ret, "/Users/ftreand/");
 	printf("ret = %s\n", ret);
-	ft_strcat(ret, s + 2);
+	if (s)
+		ft_strcat(ret, s + 2);
 	return (ret);
 }
 
@@ -62,6 +63,7 @@ void	ft_change_dir(t_sh *sh)
 {
 	char buf[4096];
 
+	printf("entry = %s\n", sh->entry[1]);
 	if (sh->entry[1][0] == '~')
 		sh->entry[1] = modif_entry(sh->entry[1]);
 	printf("sh[1] = %s\n", sh->entry[1]);

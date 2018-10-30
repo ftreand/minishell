@@ -24,7 +24,7 @@ void	ft_print_percent()
 
 void	ft_manage_cd(t_sh *sh)
 {
-	if (sh->entry[2])
+	if (sh->entry[2] != NULL)
 		ft_print_cd_error(sh);
 	else
 		ft_change_dir(sh);

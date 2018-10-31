@@ -5,8 +5,21 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/10/31 20:17:32 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/31 20:33:03 by ftreand     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_cd.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 11:23:11 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/30 23:52:22 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 20:17:27 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +65,7 @@ char	*modif_entry(char *s)
 
 	if (!(ret = malloc(sizeof(char) * (ft_strlen(s) + 14))))
 		return (NULL);
-//	ft_strcpy(ret, "/Users/ftreand/");
+	ft_strcpy(ret, "/Users/ftreand/");
 	printf("ret = %s\n", ret);
 	if (s)
 		ft_strcat(ret, s + 2);
@@ -63,6 +76,9 @@ void	ft_change_dir(t_sh *sh)
 {
 	char buf[4096];
 
+	getcwd(buf, 4096);
+	if (sh->entry[1][0] != '-')
+		modif_old_pwd(buf, sh);
 	if (!sh->entry[1])
 	{
 		OK
@@ -71,14 +87,12 @@ void	ft_change_dir(t_sh *sh)
 	else if (sh->entry[1][0] == '~')
 		sh->entry[1] = modif_entry(sh->entry[1]);
 	else if (!ft_strcmp(sh->entry[1], "-"))
-	{
-		modif_old_pwd(sh);
-		return ;
-	}
+		sh->entry[1] = modif_entry_to_old_pwd(sh);
 	if ((chdir(sh->entry[1])) == -1)
 		ft_print_dir_error(sh->entry[1]);
 	else
 	{
+		modif_old_pwd(buf, sh);
 		getcwd(buf, 4096);
 		ft_modif_pwd(buf, sh);
 	}

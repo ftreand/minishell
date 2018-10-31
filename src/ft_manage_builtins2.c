@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 21:16:31 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/30 23:18:33 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 20:39:16 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,15 +74,16 @@ int		ft_manage_builtins2(t_sh *sh)
 	}
 	else if (!ft_strcmp(sh->entry[0], "cd"))
 	{
-		printf("entry 1 = %s\n", sh->entry[1]);
+//		printf("entry 1 = %s\n", sh->entry[1]);
 //		printf("entry 2 = %s\n", sh->entry[2]);
 		if (!sh->entry[1])
 			manage_empty_cd(sh);
-		printf("entry 1 = %s\n", sh->entry[1]);
-		printf("entry 2 = %s\n", sh->entry[2]);
-		if (ft_strcmp(sh->entry[1], "-"))
-			recup_pwd(sh);
+//		printf("entry 1 = %s\n", sh->entry[1]);
+//		printf("entry 2 = %s\n", sh->entry[2]);
+//		if (ft_strcmp(sh->entry[1], "-"))
+//			recup_pwd(sh);
 		ft_manage_cd(sh);
+//		recup_pwd(sh);
 //		free(sh->pwd);
 		return (2);
 	}

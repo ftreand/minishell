@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:51:54 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 00:21:57 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 20:39:53 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,8 +47,8 @@ void	ft_exec_bin(t_sh *sh, int i)
 	{
 		//		printf("OK1\n");
 		execve(bin, sh->entry, sh->env);
-		free(bin);
 	}
+	free(bin);
 	ft_free_tab(sh->entry);
 	return ;
 }
@@ -107,36 +107,6 @@ void	ft_recup_value(t_sh *sh, char *var)
 	//	while (path[++i])
 	//		ft_putendl(path[i]);
 	sh->path = path;
-	/*
-	   void	ft_find_bin(char **entry, t_sh *sh)
-	   {
-	   int i;
-	   DIR *dir;
-	   struct dirent *dirent;
-
-	   i = 0;
-	   printf("entry 0 = %s\n", entry[0]);
-	   printf("path i = %s\n", sh->path[i]);
-	   while (sh->path[i])
-	   {
-	   printf("path i = %s\n", sh->path[i]);
-	   dir = opendir(sh->path[i]);
-	   if (dir)
-	   {
-	   while ((dirent = readdir(dir)) != NULL)
-	   {
-	   printf("name = %s\n", dirent->d_name);
-	   if (!ft_strcmp(entry[0], dirent->d_name))
-	   OK;
-	   }
-	   closedir(dir);
-	   }
-	   i++;
-	   }
-	   }
-
-	   if (sh->env)
-	   ft_fill_tab(sh->env[i], sh->path);*/
 }
 
 void	ft_recup_env(t_sh *sh)
@@ -199,7 +169,11 @@ int		main(int ac, char **av)
 		{
 //			printf("ret = %d\n", ret);
 			if (!ret)
+			{
+				ft_free_tab(sh.env);
+				ft_free_tab(sh.path);
 				break ;
+			}
 			//			if (sh.env)
 //				ft_recup_value(&sh, "PATH");
 //			if (buf[0] == '\n' || buf[0] == 32 || buf[0] == 9)
@@ -270,7 +244,7 @@ int		main(int ac, char **av)
 			//			free(sh.env);
 			//			i = 0;
 			//			printf("OK\n");
-				ft_putstr("$minishell> ");
+			ft_putstr("$minishell> ");
 		}
 	}
 	return (0);

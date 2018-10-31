@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/30 23:53:26 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/31 20:41:16 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,6 @@ char	**ft_manage_setenv(t_sh *sh)
 
 	i = ft_tablen(sh->env);
 	j = 0;
-//	printf("tablen = %d\n", i);
 	if (!(env = malloc(sizeof(char*) * (i + 2))))
 		return (NULL);
 	env[i + 1] = NULL;
@@ -41,11 +40,6 @@ char	**ft_manage_setenv(t_sh *sh)
 		j++;
 	}
 	j = 0;
-//	while (env[j])
-//	{
-//		printf("env[%d] = %s\n", j, env[j]);
-//		j++;
-//	}
 	ft_free_tab(sh->env);
 	return (env);
 }
@@ -58,8 +52,7 @@ char	**ft_manage_unsetenv(t_sh *sh)
 
 	i = 0;
 	j = 0;
-//	printf("len = %zu\n", ft_strlen(sh->entry[1]));
-	if (!(env = malloc(sizeof(char*) * ft_tablen(sh->env))))
+	if (!(env = malloc(sizeof(char*) * (ft_tablen(sh->env) + 1))))
 		return (NULL);
 	while (sh->env[i])
 	{
@@ -95,11 +88,14 @@ int		ft_manage_builtins(t_sh *sh)
 	}
 	else if (!ft_strcmp(sh->entry[0], "env"))
 	{
-		ft_print_env(sh);
+		if (!sh->entry[1])
+			ft_print_env(sh);
 		return (2);
 	}
 	else if (!ft_strcmp(sh->entry[0], "setenv"))
 	{
+		if (!sh->entry[1])
+			return(2);
 		sh->env = ft_manage_setenv(sh);
 		if (!ft_strncmp(sh->entry[1], "PATH", 4))
 			ft_recup_value(sh, "PATH");
@@ -107,6 +103,8 @@ int		ft_manage_builtins(t_sh *sh)
 	}
 	else if (!ft_strcmp(sh->entry[0], "unsetenv"))
 	{
+		if (!sh->entry[1])
+			return (2);
 		sh->env = ft_manage_unsetenv(sh);
 		OK
 		if (!ft_strcmp(sh->entry[1], "PATH"))

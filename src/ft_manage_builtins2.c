@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 21:16:31 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 00:36:08 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 18:43:24 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,14 +70,23 @@ int		ft_manage_builtins2(t_sh *sh)
 	if (!ft_strcmp(sh->entry[0], "echo"))
 	{
 		ft_manage_echo(sh);
-		return (2);
+		return (1);
+	}
+	else if (!ft_strcmp(sh->entry[0], "unsetenv"))
+	{
+		if (!sh->entry[1])
+			return (1);
+		sh->env = ft_manage_unsetenv(sh);
+		if (!ft_strcmp(sh->entry[1], "PATH"))
+			sh->path = modif_path(sh->path);
+		return (1);
 	}
 	else if (!ft_strcmp(sh->entry[0], "cd"))
 	{
 		if (!sh->entry[1])
 			manage_empty_cd(sh);
 		ft_manage_cd(sh);
-		return (2);
+		return (1);
 	}
 	return (0);
 }

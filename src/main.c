@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/31 20:49:23 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 02:54:28 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 21:41:12 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,12 +14,11 @@
 #include "../includes/minishell.h"
 #include <stdio.h>
 
-
 void	ft_exec_bin(t_sh *sh, int i)
 {
-	pid_t father;
-	char *bin;
-	int err;
+	pid_t	father;
+	char	*bin;
+	int		err;
 
 	err = 0;
 	father = fork();
@@ -45,8 +44,6 @@ void	ft_exec_bin(t_sh *sh, int i)
 int		ft_find_bin(t_sh *sh)
 {
 	int i;
-//	DIR *dir;
-//	struct dirent *dirent;
 
 	i = 0;
 	if (!sh->path)
@@ -75,8 +72,8 @@ int		ft_find_bin(t_sh *sh)
 
 void	ft_recup_value(t_sh *sh, char *var)
 {
-	char **path;
-	int i;
+	char	**path;
+	int		i;
 
 	path = NULL;
 	i = 0;
@@ -89,8 +86,8 @@ void	ft_recup_value(t_sh *sh, char *var)
 
 void	ft_recup_env(t_sh *sh)
 {
-	extern char **environ;
-	int i;
+	extern char	**environ;
+	int			i;
 
 	i = 0;
 	if (!environ[0])
@@ -111,52 +108,28 @@ void	ft_recup_env(t_sh *sh)
 	ft_recup_value(sh, "PATH");
 }
 
-void	my_handler(int sig)
-{
-	g_i = 1;
-	if (sig)
-		ft_putstr("\n$minishell> ");
-}
-
 int		main(void)
 {
-	int			i;
-	t_sh		sh;
-	char		buf[4096];
-	int			ret;
+	t_sh	sh;
 
-	init_main(&g_i, &i, &sh, buf);
-	while ((ret = read(0, buf, 4096)) != -1)
+	init_main(&g_i, &sh);
+	while ((sh.ret = read(0, sh.buf, 4096)) != -1)
 	{
 		g_i = 0;
-		if (!ret)
-		{
-			ft_free_tab(sh.env);
-			ft_free_tab(sh.path);
-			break ;
-		}
-		sh.entry = ft_split(buf);
-		if (!sh.entry[0])
-		{
-			ft_free_tab(sh.entry);
-			ft_putstr("$minishell> ");
+		if (!sh.ret && free_if_d(sh))
+			return (0);
+		sh.entry = ft_split(sh.buf);
+		if (!sh.entry[0] && no_entry(sh))
 			continue ;
-		}
-		ft_bzero(buf, 4096);
-		if ((i = ft_manage_builtins(&sh)))
+		ft_bzero(sh.buf, 4096);
+		if ((sh.i = ft_manage_builtins(&sh)))
 		{
 			ft_free_tab(sh.entry);
-			if (i != 2)
-			{
-				ft_free_struct(&sh);
+			if (sh.i != 2 && ft_free_struct(&sh))
 				return (0);
-			}
 		}
-		else
-		{
-			if (!ft_find_bin(&sh))
-				ft_executable(&sh);
-		}
+		else if (!ft_find_bin(&sh))
+			ft_executable(&sh);
 		if (!g_i)
 			ft_putstr("$minishell> ");
 	}

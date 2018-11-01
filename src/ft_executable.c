@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 23:41:18 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 21:10:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 18:03:19 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,14 +36,14 @@ void	ft_executable(t_sh *sh)
 
 	if ((i = access(sh->entry[0], F_OK) == -1))
 	{
-		ft_putstr("zsh: command not found: ");
+		ft_putstr("minishell: command not found: ");
 		ft_putendl(sh->entry[0]);
 	}
 	else if ((i = access(sh->entry[0], F_OK | X_OK)) == 0)
 		ft_execution(sh);
 	else if ((i = access(sh->entry[0], F_OK | X_OK)) == -1)
 	{
-		ft_putstr("zsh: permission denied: ");
+		ft_putstr("minishell: permission denied: ");
 		ft_putendl(sh->entry[0]);
 	}
 	ft_free_tab(sh->entry);

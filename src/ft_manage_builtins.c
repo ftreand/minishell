@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 23:09:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 21:40:09 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,10 +26,15 @@ char	**ft_manage_setenv(t_sh *sh)
 {
 	int		i;
 	int		j;
-	char	**env;
+	char	**env = NULL;
 
 	i = ft_tablen(sh->env);
 	j = 0;
+	if (verif_env(sh))
+	{
+		sh->env = modif_env(sh);
+		return (sh->env);
+	}
 	if (!(env = malloc(sizeof(char*) * (i + 2))))
 		return (NULL);
 	env[i + 1] = NULL;
@@ -98,16 +103,10 @@ int		ft_manage_builtins(t_sh *sh)
 			return (2);
 		sh->env = ft_manage_setenv(sh);
 		if (!ft_strncmp(sh->entry[1], "PATH", 4))
+		{
+			ft_free_tab(sh->path);
 			ft_recup_value(sh, "PATH");
-		return (2);
-	}
-	else if (!ft_strcmp(sh->entry[0], "unsetenv"))
-	{
-		if (!sh->entry[1])
-			return (2);
-		sh->env = ft_manage_unsetenv(sh);
-		if (!ft_strcmp(sh->entry[1], "PATH"))
-			sh->path = NULL;
+		}
 		return (2);
 	}
 	else if (ft_manage_builtins2(sh))

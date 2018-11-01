@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   ft_strlen_maj.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/12 15:18:16 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/15 21:17:32 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/01 18:58:50 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/01 19:06:06 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 16
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include "libft.h"
+#include "libft.h"
 
-typedef struct	s_fd
+size_t	ft_strlen_maj(char *s)
 {
-	int			fd;
-	char		*save;
-	int			x;
-	char		*tmp;
-	char		buff[BUFF_SIZE + 1];
-	struct s_fd	*next;
-}				t_fd;
+	int i;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	if ((s[i] < 65 && s[i] > 90) || !s )
+		return (0);
+	while (s[i] && s[i] >= 65 && s[i] <= 90)
+		i++;
+	return (i);
+}

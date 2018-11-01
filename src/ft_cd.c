@@ -43,13 +43,14 @@ void	ft_modif_pwd(char *s, t_sh *sh)
 char	*modif_entry(char *s)
 {
 	char *ret;
-
+// refaire avec le HOME de env //
 	if (!(ret = malloc(sizeof(char) * (ft_strlen(s) + 14))))
 		return (NULL);
 	ft_strcpy(ret, "/Users/ftreand/");
 	printf("ret = %s\n", ret);
 	if (s)
 		ft_strcat(ret, s + 2);
+	free(s);
 	return (ret);
 }
 

@@ -39,4 +39,6 @@ void	ft_init_struct(t_sh *sh)
 	sh->path = NULL;
 	sh->entry = NULL;
 	sh->exec = NULL;
+	sh->dir = 0;
+	sh->dirent = NULL;
 }

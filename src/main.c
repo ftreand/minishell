@@ -45,28 +45,28 @@ void	ft_exec_bin(t_sh *sh, int i)
 int		ft_find_bin(t_sh *sh)
 {
 	int i;
-	DIR *dir;
-	struct dirent *dirent;
+//	DIR *dir;
+//	struct dirent *dirent;
 
 	i = 0;
 	if (!sh->path)
 		return (0);
 	while (sh->path[i])
 	{
-		dir = opendir(sh->path[i]);
-		if (dir)
+		sh->dir = opendir(sh->path[i]);
+		if (sh->dir)
 		{
-			while ((dirent = readdir(dir)) != NULL)
+			while ((sh->dirent = readdir(sh->dir)) != NULL)
 			{
-				if (!ft_strcmp(sh->entry[0], dirent->d_name))
+				if (!ft_strcmp(sh->entry[0], sh->dirent->d_name))
 				{
 					ft_exec_bin(sh, i);
-					closedir(dir);
+					closedir(sh->dir);
 					return (1);
 				}
 			}
-			if (dir)
-				closedir(dir);
+			if (sh->dir)
+				closedir(sh->dir);
 		}
 		i++;
 	}

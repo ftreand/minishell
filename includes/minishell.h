@@ -28,11 +28,13 @@
 
 typedef struct		s_sh
 {
-	char	**env;
-	char	**path;
-	char	**entry;
-	char	*exec;
-	char	pwd[4096];
+	char			**env;
+	char			**path;
+	char			**entry;
+	char			*exec;
+	char			pwd[4096];
+	DIR				*dir;
+	struct dirent	*dirent;
 }					t_sh;
 
 int					g_i;

@@ -6,14 +6,14 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 21:16:31 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 20:39:16 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 00:36:08 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_print_percent()
+void	ft_print_percent(void)
 {
 	ft_putstr("\x1b[47m");
 	ft_putstr("\x1b[30m");
@@ -74,17 +74,9 @@ int		ft_manage_builtins2(t_sh *sh)
 	}
 	else if (!ft_strcmp(sh->entry[0], "cd"))
 	{
-//		printf("entry 1 = %s\n", sh->entry[1]);
-//		printf("entry 2 = %s\n", sh->entry[2]);
 		if (!sh->entry[1])
 			manage_empty_cd(sh);
-//		printf("entry 1 = %s\n", sh->entry[1]);
-//		printf("entry 2 = %s\n", sh->entry[2]);
-//		if (ft_strcmp(sh->entry[1], "-"))
-//			recup_pwd(sh);
 		ft_manage_cd(sh);
-//		recup_pwd(sh);
-//		free(sh->pwd);
 		return (2);
 	}
 	return (0);

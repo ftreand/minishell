@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/30 19:56:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 20:38:32 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 00:36:01 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,8 +25,8 @@ void	recup_pwd(t_sh *sh)
 
 char	*modif_entry_to_old_pwd(t_sh *sh)
 {
-	int i;
-	char buf[4096];
+	int		i;
+	char	buf[4096];
 
 	i = 0;
 	ft_bzero(buf, 4096);
@@ -40,8 +40,8 @@ char	*modif_entry_to_old_pwd(t_sh *sh)
 
 void	modif_old_pwd(char *path, t_sh *sh)
 {
-	int i;
-	char env[4096];
+	int		i;
+	char	env[4096];
 
 	i = 0;
 	ft_bzero(env, 4096);
@@ -63,7 +63,7 @@ void	manage_empty_cd(t_sh *sh)
 		return ;
 	sh->entry[0] = ft_strdup("cd");
 	while (ft_strncmp(sh->env[i], "HOME", 4))
-			i++;
+		i++;
 	sh->entry[1] = ft_strdup(sh->env[i] + 5);
 	sh->entry[2] = NULL;
 }

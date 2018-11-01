@@ -5,21 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/31 20:17:32 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 20:33:03 by ftreand     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_cd.c                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 11:23:11 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 20:17:27 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 00:43:40 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +27,8 @@ void	ft_print_cd_error(t_sh *sh)
 
 void	ft_modif_pwd(char *s, t_sh *sh)
 {
-	int i;
-	char env[4096];
+	int		i;
+	char	env[4096];
 
 	ft_bzero(env, 4096);
 	i = 0;
@@ -50,13 +37,7 @@ void	ft_modif_pwd(char *s, t_sh *sh)
 	ft_strcpy(env, "PWD=");
 	ft_strcat(env, s);
 	free(sh->env[i]);
-//	printf("buf = %s\n", s);
-//	printf("env = %s\n", env);
-//	ft_bzero(sh->env[i], ft_strlen(sh->env[i]));
-//	printf("sh env0 = %s\n", sh->env[i]);
-//	printf("env = %s\n", env);
 	sh->env[i] = ft_strsub(env, 0, ft_strlen(env));
-//	printf("sh env = %s\n", sh->env[i]);
 }
 
 char	*modif_entry(char *s)
@@ -76,14 +57,12 @@ void	ft_change_dir(t_sh *sh)
 {
 	char buf[4096];
 
+	ft_bzero(buf, 4096);
 	getcwd(buf, 4096);
 	if (sh->entry[1][0] != '-')
 		modif_old_pwd(buf, sh);
 	if (!sh->entry[1])
-	{
-		OK
 		return ;
-	}
 	else if (sh->entry[1][0] == '~')
 		sh->entry[1] = modif_entry(sh->entry[1]);
 	else if (!ft_strcmp(sh->entry[1], "-"))

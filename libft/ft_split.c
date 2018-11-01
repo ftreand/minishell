@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/18 14:12:22 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/10 19:07:27 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/01 01:06:19 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,8 @@ int		ft_count_letters(char *s, int pos)
 	int i;
 
 	i = 0;
-	while (s[pos] && s[pos] != 32 && s[pos] != 9 && s[pos] != 10 && s[pos] != 11)
+	while (s[pos] && s[pos] != 32 && s[pos] != 9 && s[pos] != 10 &&
+			s[pos] != 11)
 	{
 		pos++;
 		i++;
@@ -52,8 +53,8 @@ int		ft_count_letters(char *s, int pos)
 
 char	*ft_strsub(char *s, int pos, int len)
 {
-	char *ret;
-	int i;
+	char	*ret;
+	int		i;
 
 	i = 0;
 	if (!(ret = (char*)malloc(sizeof(char) * (len + 1))))
@@ -70,14 +71,14 @@ char	*ft_strsub(char *s, int pos, int len)
 
 char	**ft_split(char *str)
 {
-	int i;
-	int j;
-	int k;
-	char **ret;
+	int		i;
+	int		j;
+	int		k;
+	char	**ret;
 
 	i = ft_count_words(str);
 	k = 0;
-	if (!(ret = (char**)malloc(sizeof(char*) * (i + 1))))
+	if (!(ret = malloc(sizeof(char*) * (i + 1))))
 		return (NULL);
 	i = 0;
 	while (str[i])

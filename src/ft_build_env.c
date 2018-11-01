@@ -1,0 +1,36 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_build_env.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/11/01 00:31:52 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/01 02:12:08 by ftreand     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+void	build_env(t_sh *sh)
+{
+	char buf[4096];
+
+	ft_bzero(buf, 4096);
+	getcwd(buf, 4096);
+	if (!(sh->env = malloc(sizeof(char*) * 4)))
+		return ;
+	if (!(sh->env[0] = malloc(sizeof(char) * (4 + ft_strlen(buf)))))
+		return ;
+	if (!(sh->env[1] = malloc(sizeof(char) * (7 + ft_strlen(buf)))))
+		return ;
+	if (!(sh->env[2] = malloc(sizeof(char) * 19)))
+		return ;
+	ft_strcpy(sh->env[0], "PWD=");
+	ft_strcat(sh->env[0], buf);
+	ft_strcpy(sh->env[1], "OLDPWD=");
+	ft_strcat(sh->env[1], buf);
+	ft_strcpy(sh->env[2], "PATH=/bin:/usr/bin");
+	sh->env[3] = NULL;
+}

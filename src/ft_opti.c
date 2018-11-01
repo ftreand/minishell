@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_free_struct.c                                 .::    .:/ .      .::   */
+/*   ft_opti.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/23 00:54:38 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 01:01:11 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/01 01:48:46 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/01 01:58:37 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free_tab(char **tab)
+void	init_main(int *g_i, int *i, t_sh *sh, char *buf)
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
-
-void	ft_free_struct(t_sh *sh)
-{
-	ft_free_tab(sh->env);
-	ft_free_tab(sh->path);
-}
-
-void	ft_init_struct(t_sh *sh)
-{
-	sh->env = NULL;
-	sh->path = NULL;
-	sh->entry = NULL;
-	sh->exec = NULL;
+	*g_i = 0;
+	*i = 0;
+	ft_init_struct(sh);
+	ft_recup_env(sh);
+	ft_bzero(buf, 4096);
+	signal(SIGINT, my_handler);
+	ft_putstr("$minishell> ");
 }

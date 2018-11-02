@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/31 20:49:23 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 21:41:12 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/02 19:30:50 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,6 +119,11 @@ int		main(void)
 		if (!sh.ret && free_if_d(sh))
 			return (0);
 		sh.entry = ft_split(sh.buf);
+		modif_entry(&sh);
+		printf("sh entry [0] = %s\n", sh.entry[0]);
+		printf("sh entry [1] = %s\n", sh.entry[1]);
+//		sh.entry[1] = (sh.entry[1] && (sh.entry[1][0] == '~' ||
+//					sh.entry[1][0] == '$')) ? modif_entry(sh) : sh.entry[1];
 		if (!sh.entry[0] && no_entry(sh))
 			continue ;
 		ft_bzero(sh.buf, 4096);

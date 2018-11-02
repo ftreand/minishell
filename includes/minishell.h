@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 21:38:27 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/02 19:29:32 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,5 +68,6 @@ int					no_entry(t_sh sh);
 char				**modif_path(char **path);
 int					verif_env(t_sh *sh);
 char				**modif_env(t_sh *sh);
+void				modif_entry(t_sh *sh);
 
 #endif

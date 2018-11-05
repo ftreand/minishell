@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/02 18:30:17 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/04 23:15:49 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 16:56:23 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,11 @@ char	**modif_entry_home(t_sh *sh)
 
 void	modif_entry(t_sh *sh)
 {
+	if (!ft_strcmp(sh->entry[0], "cd") || (sh->entry[1] && sh->entry[1][0] == '~'))
+	{
+		check_pwd(sh);
+		check_home(sh);
+	}
 	if (sh->entry[1] && sh->entry[1][0] == '~')
 		sh->entry = modif_entry_home(sh);
 	else if (sh->entry[1] && sh->entry[1][0] == '$')

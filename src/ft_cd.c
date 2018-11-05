@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 11:23:11 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 01:27:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 16:42:38 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,8 +46,12 @@ void	ft_change_dir(t_sh *sh)
 {
 	char buf[4096];
 
-	check_pwd(sh);
+	printf("OKKKKK\n");
+//	check_pwd(sh);
+//	check_home(sh);
 	ft_bzero(buf, 4096);
+	if (!sh->entry[1])
+		manage_empty_cd(sh);
 	getcwd(buf, 4096);
 	if (sh->entry[1][0] != '-')
 		modif_old_pwd(buf, sh);

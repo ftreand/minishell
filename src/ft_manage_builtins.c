@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/04 22:46:55 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 16:06:30 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	ft_print_env(t_sh *sh)
 	int i;
 
 	i = 0;
-	while (sh->env[i])
+	while (sh->env && sh->env[i])
 	{
 		ft_putendl(sh->env[i]);
 		i++;

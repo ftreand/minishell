@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 16:49:28 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 01:01:56 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 15:55:43 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,5 +72,6 @@ void				modif_entry(t_sh *sh);
 int					ft_manage_builtins3(t_sh *sh);
 char				**ft_manage_setenv(t_sh *sh);
 void				check_pwd(t_sh *sh);
+void				check_home(t_sh *sh);
 
 #endif

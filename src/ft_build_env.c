@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/01 00:31:52 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 21:34:08 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 01:27:09 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,17 +21,9 @@ void	build_env(t_sh *sh)
 	getcwd(buf, 4096);
 	if (!(sh->env = malloc(sizeof(char*) * 4)))
 		return ;
-	if (!(sh->env[0] = malloc(sizeof(char) * (4 + ft_strlen(buf)))))
-		return ;
-	if (!(sh->env[1] = malloc(sizeof(char) * (7 + ft_strlen(buf)))))
-		return ;
-	if (!(sh->env[2] = malloc(sizeof(char) * 19)))
-		return ;
-	ft_strcpy(sh->env[0], "PWD=");
-	ft_strcat(sh->env[0], buf);
-	ft_strcpy(sh->env[1], "OLDPWD=");
-	ft_strcat(sh->env[1], buf);
-	ft_strcpy(sh->env[2], "PATH=/bin:/usr/bin");
+	sh->env[0] = ft_strjoin("PWD=", buf);
+	sh->env[1] = ft_strjoin("OLDPWD=", buf);
+	sh->env[2] = ft_strdup("PATH=/bin:/usr/bin");
 	sh->env[3] = NULL;
 }
 
@@ -43,6 +35,7 @@ char	**modif_env(t_sh *sh)
 	i = ft_tablen(sh->env);
 	if (!(ret = malloc(sizeof(char*) * (i + 1))))
 		return (NULL);
+	ret[i] = NULL;
 	i = 0;
 	while (sh->env[i])
 	{
@@ -56,7 +49,8 @@ char	**modif_env(t_sh *sh)
 		i++;
 	}
 	ft_free_tab(sh->env);
-	return (ret);
+	sh->env = ret;
+	return (sh->env);
 }
 
 int		verif_env(t_sh *sh)
@@ -64,7 +58,7 @@ int		verif_env(t_sh *sh)
 	int i;
 
 	i = 0;
-	while (sh->env[i])
+	while (sh->env && sh->env[i])
 	{
 		if (!ft_strncmp(sh->entry[1], sh->env[i], ft_strlen_maj(sh->entry[1])))
 			return (1);

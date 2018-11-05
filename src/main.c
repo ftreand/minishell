@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/31 20:49:23 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/02 19:30:50 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/04 20:49:29 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/05 01:27:47 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,7 +96,8 @@ void	ft_recup_env(t_sh *sh)
 	{
 		while (environ[i])
 			i++;
-		sh->env = malloc(sizeof(char*) * (i + 1));
+		if (!(sh->env = malloc(sizeof(char*) * (i + 1))))
+			return ;
 		sh->env[i] = NULL;
 		i = 0;
 		while (environ[i])
@@ -113,17 +114,11 @@ int		main(void)
 	t_sh	sh;
 
 	init_main(&g_i, &sh);
-	while ((sh.ret = read(0, sh.buf, 4096)) != -1)
+	while ((sh.ret = read(0, sh.buf, 4096)) > 0)
 	{
 		g_i = 0;
-		if (!sh.ret && free_if_d(sh))
-			return (0);
-		sh.entry = ft_split(sh.buf);
-		modif_entry(&sh);
-		printf("sh entry [0] = %s\n", sh.entry[0]);
-		printf("sh entry [1] = %s\n", sh.entry[1]);
-//		sh.entry[1] = (sh.entry[1] && (sh.entry[1][0] == '~' ||
-//					sh.entry[1][0] == '$')) ? modif_entry(sh) : sh.entry[1];
+		if ((sh.entry = ft_split(sh.buf)) && sh.entry[0])
+			modif_entry(&sh);
 		if (!sh.entry[0] && no_entry(sh))
 			continue ;
 		ft_bzero(sh.buf, 4096);
@@ -138,5 +133,7 @@ int		main(void)
 		if (!g_i)
 			ft_putstr("$minishell> ");
 	}
+	if (!sh.ret && free_if_d(sh))
+		return (0);
 	return (0);
 }

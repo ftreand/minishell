@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 00:54:38 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 18:24:39 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 01:28:17 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,19 +29,15 @@ void	ft_free_tab(char **tab)
 
 int		free_if_d(t_sh sh)
 {
-	if (sh.env)
-		ft_free_tab(sh.env);
-	if (sh.path[0])
-		ft_free_tab(sh.path);
+	ft_free_tab(sh.env);
+	ft_free_tab(sh.path);
 	return (1);
 }
 
 int		ft_free_struct(t_sh *sh)
 {
-	if (sh->env)
-		ft_free_tab(sh->env);
-	if (sh->path[0])
-		ft_free_tab(sh->path);
+	ft_free_tab(sh->env);
+	ft_free_tab(sh->path);
 	return (1);
 }
 

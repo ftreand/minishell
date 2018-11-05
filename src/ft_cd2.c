@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/30 19:56:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 20:07:29 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 01:27:59 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ void	modif_old_pwd(char *path, t_sh *sh)
 
 	i = 0;
 	ft_bzero(env, 4096);
-	while (ft_strncmp(sh->env[i], "OLDPWD", 6))
+	while (sh->env && ft_strncmp(sh->env[i], "OLDPWD", 6))
 		i++;
 	ft_strcpy(env, "OLDPWD=");
 	ft_strcat(env, path);

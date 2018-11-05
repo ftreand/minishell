@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/02 18:30:17 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/02 19:46:54 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/04 23:15:49 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,21 @@
 
 char	*modif_entry_env(t_sh *sh)
 {
+	int		i;
+	char	*ret;
 
+	i = 0;
+	while (sh->env[i] && ft_strncmp(sh->env[i], sh->entry[1] + 1,
+				ft_strlen_maj(sh->entry[1] + 1)))
+		i++;
+	if (!sh->env[i])
+		return (NULL);
+	if (!(ret = malloc(sizeof(char) * (ft_strlen(sh->env[i]) -
+						ft_strlen_maj(sh->env[i])))))
+		return (NULL);
+	ret = ft_strjoin(ret, sh->env[i] + ft_strlen_maj(sh->env[i]) + 1);
+	free(sh->entry[1]);
+	return (ret);
 }
 
 char	**modif_entry_home(t_sh *sh)
@@ -30,14 +44,9 @@ char	**modif_entry_home(t_sh *sh)
 	if (!(ret = malloc(sizeof(char*) * (ft_tablen(sh->entry) + 1))))
 		return (NULL);
 	ret[0] = ft_strdup(sh->entry[0]);
-	if (!(ret[1] = malloc(sizeof(char) * (ft_strlen(sh->env[i] + 5) + ft_strlen(sh->entry[1]) - 1))))
-		return (NULL);
-	ft_strcpy(ret[1], sh->env[i] + 5);
-	ft_strcat(ret[1], sh->entry[1] + 1);
-	printf("ret = %s\n", ret[1]);
+	ret[1] = ft_strjoin(sh->env[i] + 5, sh->entry[1] + 1);
 	ret[2] = NULL;
-//	if (sh->entry[1])
-	free(sh->entry);
+	ft_free_tab(sh->entry);
 	return (ret);
 }
 

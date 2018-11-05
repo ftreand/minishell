@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/01 01:48:46 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 18:53:18 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/04 19:31:11 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ void	my_handler(int sig)
 {
 	g_i = 1;
 	if (sig)
-		ft_putstr("\n$minishel> ");
+		ft_putstr("\n$minishell> ");
 }
 
 int		no_entry(t_sh sh)

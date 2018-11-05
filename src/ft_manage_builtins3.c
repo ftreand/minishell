@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strlen_maj.c                                  .::    .:/ .      .::   */
+/*   ft_manage_builtins3.c                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/01 18:58:50 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/04 22:23:54 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/04 18:32:16 by ftreand      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/04 21:51:55 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-size_t	ft_strlen_maj(char *s)
+int		ft_manage_builtins3(t_sh *sh)
 {
-	int i;
-
-	i = 0;
-	if (!s || (s[i] < 65 && s[i] > 90))
+	if (!ft_strcmp(sh->entry[0], "setenv"))
+	{
+		if (!sh->entry[1])
+			return (1);
+		sh->env = ft_manage_setenv(sh);
+		if (!ft_strncmp(sh->entry[1], "PATH", 4))
+		{
+			ft_free_tab(sh->path);
+			ft_recup_value(sh, "PATH");
+		}
+		return (1);
+	}
+	else
 		return (0);
-	while (s[i] && s[i] >= 65 && s[i] <= 90)
-		i++;
-	return (i);
 }

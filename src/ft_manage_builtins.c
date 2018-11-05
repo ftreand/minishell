@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/01 21:40:09 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/04 22:46:55 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,17 +17,21 @@ void	ft_print_env(t_sh *sh)
 {
 	int i;
 
-	i = -1;
-	while (sh->env[++i])
+	i = 0;
+	while (sh->env[i])
+	{
 		ft_putendl(sh->env[i]);
+		i++;
+	}
 }
 
 char	**ft_manage_setenv(t_sh *sh)
 {
 	int		i;
 	int		j;
-	char	**env = NULL;
+	char	**env;
 
+	env = NULL;
 	i = ft_tablen(sh->env);
 	j = 0;
 	if (verif_env(sh))
@@ -44,7 +48,6 @@ char	**ft_manage_setenv(t_sh *sh)
 		env[j] = ft_strsub(sh->env[j], 0, ft_strlen(sh->env[j]));
 		j++;
 	}
-	j = 0;
 	ft_free_tab(sh->env);
 	return (env);
 }
@@ -97,19 +100,9 @@ int		ft_manage_builtins(t_sh *sh)
 			ft_print_env(sh);
 		return (2);
 	}
-	else if (!ft_strcmp(sh->entry[0], "setenv"))
-	{
-		if (!sh->entry[1])
-			return (2);
-		sh->env = ft_manage_setenv(sh);
-		if (!ft_strncmp(sh->entry[1], "PATH", 4))
-		{
-			ft_free_tab(sh->path);
-			ft_recup_value(sh, "PATH");
-		}
-		return (2);
-	}
 	else if (ft_manage_builtins2(sh))
+		return (2);
+	else if (ft_manage_builtins3(sh))
 		return (2);
 	return (0);
 }

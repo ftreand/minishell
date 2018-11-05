@@ -6,7 +6,7 @@
 #    By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/09 14:43:44 by ftreand      #+#   ##    ##    #+#        #
-#    Updated: 2018/11/02 18:34:59 by ftreand     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/05 01:04:10 by ftreand     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,6 +32,7 @@ CC_FLAGS = -Wall -Werror -Wextra -g
 SRC =	main.c \
 		ft_manage_builtins.c \
 		ft_manage_builtins2.c \
+		ft_manage_builtins3.c \
 		ft_executable.c \
 		ft_init_struct.c \
 		ft_cd.c \
@@ -39,6 +40,7 @@ SRC =	main.c \
 		ft_build_env.c \
 		ft_opti.c \
 		ft_modif_entry.c \
+		ft_check_pwd.c
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 

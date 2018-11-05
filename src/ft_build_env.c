@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/01 00:31:52 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 01:27:09 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/06 00:07:06 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,13 +56,26 @@ char	**modif_env(t_sh *sh)
 int		verif_env(t_sh *sh)
 {
 	int i;
+	char	*tmp;
+	char	*tmp2;
 
 	i = 0;
 	while (sh->env && sh->env[i])
 	{
-		if (!ft_strncmp(sh->entry[1], sh->env[i], ft_strlen_maj(sh->entry[1])))
+		tmp = ft_strchr(sh->env[i], '=') ? ft_strsub(sh->env[i], 0, ft_strlen(sh->env[i]) - ft_strlen(ft_strchr(sh->env[i], '='))) : ft_strdup(sh->env[i]);
+		tmp2 = ft_strsub(sh->entry[1], 0, ft_strlen(sh->entry[1]) - ft_strlen(ft_strchr(sh->entry[1], '=')));
+		printf("TMP[%s] == [%s]\n", tmp, sh->entry[1]);
+		//if (!ft_strncmp(sh->entry[1], sh->env[i], ft_strlen_maj(sh->entry[1])))
+		if (!ft_strcmp(tmp2, tmp))
+		{
+			printf("TROUVER\n");
+					ft_strdel(&tmp);
+					ft_strdel(&tmp2);
 			return (1);
-		i++;
+		}
+			ft_strdel(&tmp);
+			ft_strdel(&tmp2);
+	i++;
 	}
 	return (0);
 }

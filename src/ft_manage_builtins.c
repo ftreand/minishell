@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/17 16:57:10 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 16:06:30 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/05 23:37:22 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,7 @@ char	**ft_manage_setenv(t_sh *sh)
 	j = 0;
 	if (verif_env(sh))
 	{
+		printf("okkk\n");
 		sh->env = modif_env(sh);
 		return (sh->env);
 	}
@@ -45,7 +46,8 @@ char	**ft_manage_setenv(t_sh *sh)
 	env[i] = ft_strsub(sh->entry[1], 0, ft_strlen(sh->entry[1]));
 	while (j != i)
 	{
-		env[j] = ft_strsub(sh->env[j], 0, ft_strlen(sh->env[j]));
+		env[j] = ft_strdup(sh->env[j]);
+		printf("env[j] = %s\n", env[j]);
 		j++;
 	}
 	ft_free_tab(sh->env);

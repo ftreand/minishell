@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 21:16:31 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 23:30:11 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/06 18:35:12 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ void	ft_print_entry(char **entry, int j)
 			k++;
 		}
 		k = 0;
-		if (entry[i + 1])
+		if (entry[i + 1] && ft_strcmp(entry[i], ""))
 			ft_putchar(' ');
 	}
 	!j ? ft_putchar('\n') : ft_print_percent();
@@ -83,10 +83,6 @@ int		ft_manage_builtins2(t_sh *sh)
 	}
 	else if (!ft_strcmp(sh->entry[0], "cd"))
 	{
-//		check_pwd(sh);
-//		check_home(sh);
-//		if (!sh->entry[1])
-//			manage_empty_cd(sh);
 		ft_manage_cd(sh);
 		return (1);
 	}

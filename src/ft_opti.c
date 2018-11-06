@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/01 01:48:46 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 23:31:55 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/06 17:45:02 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,9 +43,8 @@ char	**modif_path(char **path)
 {
 	ft_free_tab(path);
 	path = NULL;
-	if (!(path = malloc(sizeof(char*) * 2)))
+	if (!(path = malloc(sizeof(char*))))
 		return (NULL);
-	path[0] = ft_strdup("\0");
-	path[1] = NULL;
+	path[0] = NULL;
 	return (path);
 }

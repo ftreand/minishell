@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/05 00:52:52 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 23:31:44 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/06 01:29:00 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,5 +77,4 @@ void	check_pwd(t_sh *sh)
 	}
 	if (j <= 2)
 		sh->env = build_pwd(sh, j);
-	printf("okkkkkkkkkk\n");
 }

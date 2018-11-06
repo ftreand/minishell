@@ -6,7 +6,7 @@
 /*   By: ftreand <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 00:54:38 by ftreand      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/05 01:30:09 by ftreand     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/06 18:47:25 by ftreand     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	ft_free_tab(char **tab)
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		free(tab[i]);
 		i++;
